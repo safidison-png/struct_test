@@ -56,7 +56,7 @@ int enter(int line, student_data* val, char* path, int* lines){
 			else{
 				printf("Mauvais choix\n");
 			}
-			if(c<0)printf("Le nom ou le numero n'existe pas dans le fichier\n");
+			if(c<0||c>line)printf("Le nom ou le numero n'existe pas dans le fichier\n");
 		}
 		printf("Quelle information voulez-vous ajouter: \n1-Tel\n2-Email\n3-Adresse\n4-Date de naissance\n5-Lieu de naissance\n6-Annee d'obtention bacc\n7-Genre\n8-CIN\n9-Lien github\n10-Nom\n11-Prenom\n=>");
 		char valiny[50];
