@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #define ta 10000
 #include "student_b.h"
 
@@ -20,12 +21,22 @@ int enter(int line, student_data* val, char* path, int* lines){
 		printf("Enter le nombre d'etudiant a entrer: ");
 		scanf("%d", &nbr_std);
 		strcpy(path, "/home/safidison/Documents/student_info.csv");
-		line = line_number(path);
-		val = scan_data(line, val, path);
-		for(int i=line;i<line+nbr_std;i++){
-			val[i] = getDataE();
+		if(isdigit(nbr_std)&&nbr_std>0&&nbr_std<ta){
+			line = line_number(path);
+			val = scan_data(line, val, path);
+			for(int i=line;i<line+nbr_std;i++){
+				val[i] = getDataE();
+			}
+			line+=nbr_std;
 		}
-		line+=nbr_std;
+		else if(nbr_std>ta){
+			printf("Nombre d'etudiant depasse le maximum\n");
+			*lines = -1;
+		}
+		else {
+			printf("Mauvais choix\n");
+			*lines = -1;
+		}
 	}
 	else if(choice==3){
 		int fidy = 0, c=-1;
@@ -37,7 +48,7 @@ int enter(int line, student_data* val, char* path, int* lines){
 			printf("1-Chercher avec le nom\n2-Chercher avec le numero\n=>");
 			int saf = 0;
 			scanf("%d", &saf);
-			if(saf==1){
+			if(saf==1&&isdigit(saf)){
 				printf("Donner le nom d'eleve pour y ajouter des informations: ");
 				scanf("%s", anarana);
 				for(int i=0;i<line;i++){
@@ -47,80 +58,84 @@ int enter(int line, student_data* val, char* path, int* lines){
 					}
 				}
 			}
-			else if(saf==2){
+			else if(saf==2&&isdigit(saf)){
 				printf("Donner le numero: ");
 				int num;
 				scanf("%d", &num);
 				c = (num>0&&num<=line)?num:0;
 			}
 			else{
+				c = line+1;
 				printf("Mauvais choix\n");
 			}
-			if(c<0||c>line)printf("Le nom ou le numero n'existe pas dans le fichier\n");
+			if((c<0||c>line||!(isdigit(c)))&&c!=line+1)printf("Le nom ou le numero n'existe pas dans le fichier\n");
 		}
-		printf("Quelle information voulez-vous ajouter: \n1-Tel\n2-Email\n3-Adresse\n4-Date de naissance\n5-Lieu de naissance\n6-Annee d'obtention bacc\n7-Genre\n8-CIN\n9-Lien github\n10-Nom\n11-Prenom\n=>");
-		char valiny[50];
-		scanf("%d", &fidy);
-		switch(fidy){
-			case 1:
-				printf("Tel: ");
-				scanf("%s", valiny);
-				strcpy(val[c].tel,valiny);
-				break;
-			case 2:
-				printf("Email: ");
-				scanf("%s", valiny);
-				strcpy(val[c].email,valiny);
-				break;
-			case 3:
-				printf("Adressse: ");
-				scanf("%s", valiny);
-				strcpy(val[c].adress,valiny);
-				break;
-			case 4:
-				printf("Date de naissance: ");
-				scanf("%s", valiny);
-				strcpy(val[c].date,valiny);
-				break;
-			case 5:
-				printf("Lieu de naissance: ");
-				scanf("%s", valiny);
-				strcpy(val[c].place,valiny);
-				break;
-			case 6:
-				printf("Date d'obtention bacc: ");
-				scanf("%s", valiny);
-				strcpy(val[c].bacc,valiny);
-				break;
-			case 7:
-				printf("Genre: ");
-				scanf("%s", valiny);
-				strcpy(val[c].sex,valiny);
-				break;
-			case 8:
-				printf("CIN: ");
-				scanf("%s", valiny);
-				strcpy(val[c].CIN,valiny);
-				break;
-			case 9:
-				printf("Lien github: ");
-				scanf("%s", valiny);
-				strcpy(val[c].git,valiny);
-				break;
-			case 10:
-				printf("Nom : ");
-				scanf("%s", valiny);
-				strcpy(val[c].last_name,valiny);
-				break;
-			case 11:
-				printf("Prenomh : ");
-				scanf("%s", valiny);
-				strcpy(val[c].name,valiny);
-				break;
-			default:
-				printf("Mauvais choix\n");
-				break;
+		if(c>0&&c<=line){
+			printf("Quelle information voulez-vous ajouter: \n1-Tel\n2-Email\n3-Adresse\n4-Date de naissance\n5-Lieu de naissance\n6-Annee d'obtention bacc\n7-Genre\n8-CIN\n9-Lien github\n10-Nom\n11-Prenom\n=>");
+			char valiny[50];
+			scanf("%d", &fidy);
+			switch(fidy){
+				case 1:
+					printf("Tel: ");
+					scanf("%s", valiny);
+					strcpy(val[c].tel,valiny);
+					break;
+				case 2:
+					printf("Email: ");
+					scanf("%s", valiny);
+					strcpy(val[c].email,valiny);
+					break;
+				case 3:
+					printf("Adressse: ");
+					scanf("%s", valiny);
+					strcpy(val[c].adress,valiny);
+					break;
+				case 4:
+					printf("Date de naissance: ");
+					scanf("%s", valiny);
+					strcpy(val[c].date,valiny);
+					break;
+				case 5:
+					printf("Lieu de naissance: ");
+					scanf("%s", valiny);
+					strcpy(val[c].place,valiny);
+					break;
+				case 6:
+					printf("Date d'obtention bacc: ");
+					scanf("%s", valiny);
+					strcpy(val[c].bacc,valiny);
+					break;
+				case 7:
+					printf("Genre: ");
+					scanf("%s", valiny);
+					strcpy(val[c].sex,valiny);
+					break;
+				case 8:
+					printf("CIN: ");
+					scanf("%s", valiny);
+					strcpy(val[c].CIN,valiny);
+					break;
+				case 9:
+					printf("Lien github: ");
+					scanf("%s", valiny);
+					strcpy(val[c].git,valiny);
+					break;
+				case 10:
+					printf("Nom : ");
+					scanf("%s", valiny);
+					strcpy(val[c].last_name,valiny);
+					break;
+				case 11:
+					printf("Prenom : ");
+					scanf("%s", valiny);
+					strcpy(val[c].name,valiny);
+					break;
+				default:
+					printf("Mauvais choix\n");
+					break;
+			}
 		}
+		else *lines = -1;
 	}
 	else if(choice==4){
 		char anarana[50];
