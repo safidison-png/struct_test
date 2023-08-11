@@ -6,7 +6,7 @@
 
 int enter(int line, student_data* val, char* path, int* lines){
 	int choice = 0;
-	printf("Choisir ce que vous voulez faire:\n1-Recuperer des donnees dans un fichier pour ajouter au fichier des informations des etudiants\n2-Recupere des donnees aux entrees standars\n3-Ajouter ou modifier d'autres informations d'un eleve\n4-Connaitre le numero d'un eleve avec son nom\n=>");
+	printf("Choisir ce que vous voulez faire:\n1-Recuperer des donnees dans un fichier pour ajouter au fichier des informations des etudiants\n2-Recupere des donnees complets aux entrees standars\n3-Ajouter ou modifier d'autres informations d'un eleve\n4-Connaitre le numero d'un eleve avec son nom\n=>");
 	scanf("%d", &choice);
 	*lines = choice;
 	if(choice==1){
@@ -34,7 +34,7 @@ int enter(int line, student_data* val, char* path, int* lines){
 		line = line_number(path);
 		val = scan_data(line, val, path);
 		while(c<0){
-			printf("1-Chercher avec le nom\n2-Chercher avec le numero\n");
+			printf("1-Chercher avec le nom\n2-Chercher avec le numero\n=>");
 			int saf = 0;
 			scanf("%d", &saf);
 			if(saf==1){
@@ -58,7 +58,7 @@ int enter(int line, student_data* val, char* path, int* lines){
 			}
 			if(c<0)printf("Le nom ou le numero n'existe pas dans le fichier\n");
 		}
-		printf("Quelle information voulez-vous ajouter: \n1-Tel\n2-Email\n3-Adresse\n4-Date de naissance\n5-Lieu de naissance\n6-Annee d'obtention bacc\n7-Genre\n8-CIN\n9-Lien github\n10-Nom\n11-Prenom");
+		printf("Quelle information voulez-vous ajouter: \n1-Tel\n2-Email\n3-Adresse\n4-Date de naissance\n5-Lieu de naissance\n6-Annee d'obtention bacc\n7-Genre\n8-CIN\n9-Lien github\n10-Nom\n11-Prenom\n=>");
 		char valiny[50];
 		scanf("%d", &fidy);
 		switch(fidy){
@@ -66,48 +66,60 @@ int enter(int line, student_data* val, char* path, int* lines){
 				printf("Tel: ");
 				scanf("%s", valiny);
 				strcpy(val[c].tel,valiny);
+				break;
 			case 2:
 				printf("Email: ");
 				scanf("%s", valiny);
 				strcpy(val[c].email,valiny);
+				break;
 			case 3:
 				printf("Adressse: ");
 				scanf("%s", valiny);
 				strcpy(val[c].adress,valiny);
+				break;
 			case 4:
 				printf("Date de naissance: ");
 				scanf("%s", valiny);
 				strcpy(val[c].date,valiny);
+				break;
 			case 5:
 				printf("Lieu de naissance: ");
 				scanf("%s", valiny);
 				strcpy(val[c].place,valiny);
+				break;
 			case 6:
 				printf("Date d'obtention bacc: ");
 				scanf("%s", valiny);
 				strcpy(val[c].bacc,valiny);
+				break;
 			case 7:
 				printf("Genre: ");
 				scanf("%s", valiny);
 				strcpy(val[c].sex,valiny);
+				break;
 			case 8:
 				printf("CIN: ");
 				scanf("%s", valiny);
 				strcpy(val[c].CIN,valiny);
+				break;
 			case 9:
 				printf("Lien github: ");
 				scanf("%s", valiny);
 				strcpy(val[c].git,valiny);
+				break;
 			case 10:
-				printf("Lien github: ");
+				printf("Nom : ");
 				scanf("%s", valiny);
 				strcpy(val[c].last_name,valiny);
+				break;
 			case 11:
-				printf("Lien github: ");
+				printf("Prenomh : ");
 				scanf("%s", valiny);
 				strcpy(val[c].name,valiny);
+				break;
 			default:
 				printf("Mauvais choix\n");
+				break;
 		}
 	}
 	else if(choice==4){
